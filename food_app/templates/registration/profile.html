@@ -1,0 +1,76 @@
+{% extends 'sitepages/base2.html'%}
+{%load static%}
+{%block aboutpage_content%}
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">{{ptitle}}</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center text-uppercase">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">{{pslug}}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+
+
+
+  
+        <style>
+            #profile-container {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              height: 50vh;
+              
+               
+            }
+          
+            #profile-card {
+              border: 1px solid #ddd; /* Add a border for a card-like appearance */
+              padding: 20px; /* Add padding for spacing inside the card */
+              max-width: 400px; /* Set the maximum width of the card */
+              text-align: center;
+              border-radius: 20px;
+            }
+          
+            #profile-info p {
+              margin: 10px 0; /* Add margin to separate each profile detail */
+            }
+          
+            #edit-profile-link {
+              margin-top: 20px; /* Add margin above the Edit Profile link */
+            }
+          </style>
+          
+          <div id="profile-container">
+            <div id="profile-card">
+              <h2>Welcome {{ request.user }} ✋</h2>
+              <div id="profile-info">
+                <p>First Name: {{ user_profile.first_name }}</p>
+                <p>Last Name: {{ user_profile.last_name }}</p>
+                <p>Delivery Address: {{ user_profile.delivery_address }}</p>
+                <p>Email: {{ user_profile.email }}</p>
+                <p>Phone Number: {{ user_profile.phone_number }}</p>
+                <!-- Add other fields as needed -->
+              </div>
+              <a href="{% url 'accounts:editprofile' %}" id="edit-profile-link">Edit Profile</a>
+            </div>
+          </div>
+          
+  
+
+
+  <!-- Display user profile details here -->
+
+  
+
+
+{% endblock %}

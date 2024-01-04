@@ -1,0 +1,140 @@
+{%extends 'sitepages/base1.html'%}
+{%load static%}
+{%block aboutpage_content%}
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">{{pslug}}</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center text-uppercase">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">{{pslug}}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+</div>
+<style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* height: 100vh; */
+    }
+
+    form {
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 20px;
+      width: 400px;
+      text-align: left;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    .order-details-box {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+ }
+ .checkout-container {
+        display: flex;
+        justify-content: center;
+        /* margin: 20px 100px; Adjust the margin as needed */
+  }
+  </style>
+
+
+<h1>Checkout</h1>
+<div class="checkout-container">
+    <form method="post" action="{% url 'sitepages:checkout' %}">
+        {% csrf_token %}
+
+        <div id="checkoutDetailsSection">
+            <h2>Checkout Details</h2>
+            {{ form.as_p }}
+        </div>
+
+        <div class="order-details-box">
+            <h2>Order Details</h2>
+            <ul>
+                {% for i in citems %}
+                    <li>{{ i.name }} - Quantity: {{ i.qty }} - Unit Price: {{ i.u_price }} - Total: {{ i.uqty }}</li>
+                {% endfor %}
+            </ul>
+        
+            <p>Total Amount: &#8358; {{ totalsum }}</p>
+            <p>Delivery Fee: &#8358; {{ delivery_fee }}</p>
+            <h2>Total Amount (including Delivery Fee): &#8358; {{ totalsum|add:delivery_fee }}</h2>
+        </div>
+
+        <input type="submit" value="Proceed to Payment">
+    </form>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+ 
+   
+    
+  {% endblock %}
+  
+
+
+
+    
+  
+    
+    
+    
+
+
+    

@@ -1,0 +1,127 @@
+{%extends 'sitepages/base1.html'%}
+{%load static%}
+{%block aboutpage_content%}
+
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 50px;
+    }
+
+    th, td {
+        border: 1px solid #ddd; /* Add borders to table header and table data cells */
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2; /* Add a background color to table header cells */
+    }
+
+    tr:hover {
+        background-color: #f5f5f5; /* Highlight the row on hover */
+    }
+    @media(max-width:900px){
+        table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    }
+</style>
+
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container text-center my-5 pt-5 pb-4">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Cart</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center text-uppercase">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Cart Details</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Navbar & Hero End -->
+
+
+
+ <!-- {% if citems %}
+ <table>
+     <thead>
+         <tr>
+             <th>Product Name</th>
+             <th>Price</th>
+             <th>Quantity</th>
+             <th>total incl delivery fee (#{{ tsum }})</th>
+             <th>+</th>
+             <th>-</th>
+         </tr>
+     </thead>
+     <tbody>
+         {% for i in citems %}
+         <tr>
+             <td>{{ i.name }}</td>
+             <td>{{ i.price }}</td>
+             <td>{{ i.qty }}</td>
+             <td>{{ i.uqty }}</td>
+             <td><a href="/addtocart/{{ i.pid }}">[+]</a></td>
+             <td><a href="/removefromcart/{{ i.pid }}">[-]</a></td>
+         </tr>
+         {% endfor %}
+     </tbody>
+ </table>
+ <a href="/checkout" class="btn-primary mx-2 py-3 px-3">Proceed to Checkout</a>
+
+{% else %}
+<h2 style="text-align: center;">Oops!Your cart is empty 😮</h2>
+<div style="display: flex;justify-content: center;">
+    <a href="/" class="btn-primary mx-2 py-3 px-3">Go back Home</a>
+</div>
+{% endif %} -->
+
+
+
+
+      
+
+
+
+
+{% if citems %}
+<table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Quantity + -</th>
+            <th>Total incl delivery fee (#{{ tsum }})</th>
+            <!-- <th>+</th>
+            <th>-</th> -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in citems %}
+        <tr>
+            <td>{{ i.name }}</td>
+            <td><img src="{{ i.image }}" alt="{{ i.name }}" style="width: 50px; height: 50px;"></td>
+            <td>{{ i.price }}</td>
+            <td>{{ i.qty }} <a href="/addtocart/{{ i.pid }}">[+]</a> <a href="/removefromcart/{{ i.pid }}">[-]</a></td>
+            <td>{{ i.uqty }}</td>
+            <!-- <td><a href="/addtocart/{{ i.pid }}">[+]</a></td>
+            <td><a href="/removefromcart/{{ i.pid }}">[-]</a></td> -->
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/checkout" class="btn-primary mx-2 py-3 px-3">Proceed to Checkout</a>
+{% else %}
+<h2 style="text-align: center;">Oops!Your cart is empty 😮</h2>
+<div style="display: flex;justify-content: center;">
+    <a href="/" class="btn-primary mx-2 py-3 px-3">Go back Home</a>
+</div>
+{% endif %}
+{%endblock%}

@@ -1,0 +1,27 @@
+{%extends 'sitepages/base1.html'%}
+{%load static%}
+{%block aboutpage_content%}
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">{{pslug}}</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center text-uppercase">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">{{pslug}}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+</div>
+
+<h1>Payment not Successful</h1>
+<p>Your payment hasn't been received go back and make your payment then your order will be successfully processed.</p>
+
+
+
+
+
+      
+
+{%endblock%}

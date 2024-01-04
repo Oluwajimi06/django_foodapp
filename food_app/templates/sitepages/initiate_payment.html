@@ -1,0 +1,63 @@
+{%extends 'sitepages/base1.html'%}
+{%load static%}
+{%block aboutpage_content%}
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">{{pslug}}</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center text-uppercase">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">{{pslug}}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+    <h1>Checkout Summary</h1>
+
+    <h2>Order Details</h2>
+    <ul>
+        {% for i in citems %}
+            <li>{{ i.name }} - Quantity: {{ i.qty }} - Unit Price: {{ i.u_price }} - Total: {{ i.uqty }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Total Amount: &#8358; {{ tsum }}</h2>
+    <p>Delivery Fee: &#8358; {{ delivery_fee }}</p>
+    <p>Total Amount (including Delivery Fee): &#8358; {{ tsum|add:delivery_fee }}</p>
+    <p>{{total_amount}}</p>
+
+    <h2>Delivery Information</h2>
+    {% if user_profile %}
+        <p>Name: {{ user_profile.first_name }} {{ user_profile.last_name }}</p>
+        <p>Email: {{ user_profile.email }}</p>
+        <p>Delivery Address: {{ user_profile.delivery_address }}</p>
+        <p>Phone Number: {{ user_profile.phone_number }}</p>
+    {% endif %}
+
+    <form method="POST" action="{% url 'sitepages:initiate_payment' order_id=order.id %}">
+        {% csrf_token %}
+        <button type="submit">Proceed to Payment</button>
+    </form>
+
+    
+    <a href="{% url 'sitepages:viewcart' %}">Back to Cart</a>
+
+
+
+
+
+
+
+      
+
+{%endblock%}

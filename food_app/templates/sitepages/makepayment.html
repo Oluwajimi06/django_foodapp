@@ -1,0 +1,71 @@
+{%extends 'sitepages/base1.html'%}
+{%load static%}
+{%block aboutpage_content%}
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">{{pslug}}</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center text-uppercase">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">{{pslug}}</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+</div>
+
+<!-- makepayment.html -->
+
+
+  <h1>Make Payment</h1>
+  
+  <button id="proceed-to-paystack">Proceed to Paystack</button>
+
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var proceedButton = document.getElementById("proceed-to-paystack");
+
+      proceedButton.addEventListener("click", function () {
+        // Add logic here to redirect to Paystack
+        // Use the order_id and total_amount as needed
+        // For example, you can construct the Paystack URL with necessary parameters
+        var order_id = "{{ order_id }}";
+        var total_amount = "{{ total_amount }}";
+        var callback_url = "{{ callback_url }}";
+
+        // Construct the Paystack URL
+        var paystackUrl = "https://checkout.paystack.com/" +
+          "?key=pk_test_1a44bb84cd40572769788473ab293b39bb359d14" +  // Replace with your actual Paystack public key
+          "&email={{ request.user.email }}" +  // User's email
+          "&amount=" + total_amount * 100 +  // Amount in kobo
+          "&order_id=" + order_id +
+          "&callback=" + encodeURIComponent(callback_url);
+
+        // Redirect to Paystack
+        window.location.href = paystackUrl;
+      });
+    });
+  </script>
+
+
+
+
+
+
+
+
+
+    
+    <a href="{% url 'sitepages:viewcart' %}">Back to Cart</a>
+
+
+
+
+
+
+
+      
+
+{%endblock%}
