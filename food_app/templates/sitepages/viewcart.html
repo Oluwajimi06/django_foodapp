@@ -33,7 +33,7 @@
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
                 <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">Cart</h1>
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">{{ptitle}}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -97,8 +97,9 @@
             <th>Product Name</th>
             <th>Image</th>
             <th>Price</th>
-            <th>Quantity + -</th>
-            <th>Total incl delivery fee (#{{ tsum }})</th>
+            <th>qty + -</th>
+            <th>Del</th>
+            <!-- <th>Total incl delivery fee (#{{ tsum }})</th> -->
             <!-- <th>+</th>
             <th>-</th> -->
         </tr>
@@ -110,7 +111,8 @@
             <td><img src="{{ i.image }}" alt="{{ i.name }}" style="width: 50px; height: 50px;"></td>
             <td>{{ i.price }}</td>
             <td>{{ i.qty }} <a href="/addtocart/{{ i.pid }}">[+]</a> <a href="/removefromcart/{{ i.pid }}">[-]</a></td>
-            <td>{{ i.uqty }}</td>
+            <td><a href="/deletefromcart/{{ i.pid }}"><img src="{%static 'img/delete-icon.png' %}" alt="" height="40px"></a></td>
+            <!-- <td>{{ i.uqty }}</td> -->
             <!-- <td><a href="/addtocart/{{ i.pid }}">[+]</a></td>
             <td><a href="/removefromcart/{{ i.pid }}">[-]</a></td> -->
         </tr>

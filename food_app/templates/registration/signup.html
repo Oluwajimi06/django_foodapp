@@ -3,12 +3,12 @@
 {%block aboutpage_content%}
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
                 <div class="container text-center my-5 pt-5 pb-4">
-                    <h1 class="display-3 text-white mb-3 animated slideInDown">{{pslug}}</h1>
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">{{data.ptitle}}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">{{pslug}}</li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Sign up</li>
                         </ol>
                     </nav>
                 </div>
@@ -50,7 +50,7 @@
             }
         
             button {
-              background-color: #4caf50;
+              background-color: #fea116;
               color: #fff;
               padding: 10px 20px;
               border: none;
@@ -59,21 +59,19 @@
               font-size: 16px;
             }
         
-            button:hover {
-              background-color: #45a049;
-            }
+        
             h2{
                 text-align: center;
             }
           </style>
 
-
-<h2>Register</h2>
+<h2>Sign Up</h2>
   <div style="display: flex;justify-content: center;">
-  <form method="POST" action="{% url 'accounts:register' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-  </form>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Sign Up</button>
+    </form>
   </div>
+<p style="margin-top: 20px;text-align: center;"><a href="{% url 'login' %}">Already have an account? Login</a>
 {% endblock %}

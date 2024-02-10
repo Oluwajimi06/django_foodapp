@@ -8,7 +8,7 @@
             <div class="col-lg-6 text-center text-lg-start">
                 <h1 class="display-3 text-white animated slideInLeft">Enjoy Our<br>Delicious Meal</h1>
                 <p class="text-white animated slideInLeft mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                <a href="" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
+                <a href="/booking" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">Book A Table</a>
             </div>
             <div class="col-lg-6 text-center text-lg-end overflow-hidden">
                 <img class="img-fluid" src="{%static 'img/hero.png'%}" alt="">
@@ -25,10 +25,9 @@
                     <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
                     <h1 class="mb-5">Most Popular Items</h1>
                 </div>
-
-                
+        
                 <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+                    <ul class="nav nav-pills d-inline-flex  justify-content-center border-bottom mb-5">
                         <li class="nav-item">
                             <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill" href="#tab-1">
                                 <i class="fa fa-coffee fa-2x text-primary"></i>
@@ -38,17 +37,17 @@
                                 </div>
                             </a>
                         </li>
-
+        
                         <li class="nav-item">
                             <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
                                 <i class="fa fa-hamburger fa-2x text-primary"></i>
                                 <div class="ps-3">
                                     <small class="text-body">Special</small>
-                                    <h6 class="mt-n1 mb-0">Launch</h6>
+                                    <h6 class="mt-n1 mb-0">Lunch</h6>
                                 </div>
                             </a>
                         </li>
-
+        
                         <li class="nav-item">
                             <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
                                 <i class="fa fa-utensils fa-2x text-primary"></i>
@@ -59,73 +58,78 @@
                             </a>
                         </li>
                     </ul>
-                    
+        
                     <div class="tab-content">
+                        <!-- Tab-1: Breakfast -->
                         <div id="tab-1" class="tab-pane fade show p-0 active">
                             <div class="row g-4">
-                                {%for x in mdata%}
+                                {% for x in breakfast_items %}
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
                                         <img class="flex-shrink-0 img-fluid rounded" src="/media/{{x.image}}" alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
                                                 <span>{{x.name}}</span>
-                                                <span class="text-primary">&#8358;{{x.price}}</span>
+                                              
+                                                
+                                                <span class="text-primary">&#8358; {{x.price}}</span>
                                             </h5>
                                             <small class="fst-italic">{{x.desc_short}}<a href="/addtocart/{{x.id}}" class="mx-2">Add to cart!</a>
-                                <a href="/details/{{x.id}}" class="mx-2">Details</a></small>
+                                                <a href="/details/{{x.id}}" class="mx-2">Details</a></small>
                                         </div>
                                     </div>
                                 </div>
-                                {%endfor%}
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
-
-
+        
+                        <!-- Tab-2: Lunch -->
                         <div id="tab-2" class="tab-pane fade show p-0">
-                            <!-- <div class="row g-4">
+                            <div class="row g-4">
+                                {% for x in lunch_items %}
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="" alt="" style="width: 80px;">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="/media/{{x.image}}" alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                                <span></span>
-                                                <span class="text-primary"></span>
+                                                <span>{{x.name}}</span>
+                                              
+                                                
+                                                <span class="text-primary">&#8358; {{x.price}}</span>
                                             </h5>
-                                            <small class="fst-italic"></small>
+                                            <small class="fst-italic">{{x.desc_short}}<a href="/addtocart/{{x.id}}" class="mx-2">Add to cart!</a>
+                                                <a href="/details/{{x.id}}" class="mx-2">Details</a></small>
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
+                                {% endfor %}
+                            </div>
                         </div>
-
-
+        
+                        <!-- Tab-3: Dinner -->
                         <div id="tab-3" class="tab-pane fade show p-0">
-                            <!-- <div class="row g-4">
+                            <div class="row g-4">
+                                {% for x in dinner_items %}
                                 <div class="col-lg-6">
                                     <div class="d-flex align-items-center">
-                                        <img class="flex-shrink-0 img-fluid rounded" src="" alt="" style="width: 80px;">
+                                        <img class="flex-shrink-0 img-fluid rounded" src="/media/{{x.image}}" alt="" style="width: 80px;">
                                         <div class="w-100 d-flex flex-column text-start ps-4">
                                             <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                                <span></span>
-                                                <span class="text-primary"></span>
+                                                <span>{{x.name}}</span>
+                                              
+                                                
+                                                <span class="text-primary">&#8358; {{x.price}}</span>
                                             </h5>
-                                            <small class="fst-italic"></small>
+                                            <small class="fst-italic">{{x.desc_short}}<a href="/addtocart/{{x.id}}" class="mx-2">Add to cart!</a>
+                                                <a href="/details/{{x.id}}" class="mx-2">Details</a></small>
                                         </div>
                                     </div>
                                 </div>
-                </div> -->
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-        <!-- Menu End -->
-
-        {%endblock%}
-
-
-
-
-       
-        
+        {% endblock %}

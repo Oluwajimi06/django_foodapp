@@ -20,20 +20,28 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wlcklwo@b1t2knqi27vrcdnfi&(q&v_bju8m&-^o95e(ww!!2v'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['cabc-105-113-73-28.ngrok-free.app','localhost','127.0.0.1']
-# # settings.py
-
 # settings.py
 
-PAYSTACK_SECRET_KEY = 'sk_test_402f276e72eda81696740efd5e5bd11b3901d401'
+
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 
-PAYSTACK_WEBHOOK_URL = 'https://05a9-105-112-200-109.ngrok-free.app/paystack-webhook/'
+
+DEBUG = True
+# settings.py
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '41e3-102-89-22-125.ngrok-free.app']
+
+
+PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
+
+
+# PAYSTACK_WEBHOOK_URL = 'https://05a9-105-112-200-109.ngrok-free.app/paystack-webhook/'
 
 
 
@@ -64,7 +72,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sitepages','accounts',
+    'sitepages',"accounts",  # new
 ]
 
 MIDDLEWARE = [
@@ -83,7 +91,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'DIRS':[os.path.join(BASE_DIR,'templates')],
+        "DIRS": [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,9 +100,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'libraries':{
-                'staticfiles':'django.templatetags.static',
-            }
         },
     },
 ]
@@ -105,12 +110,15 @@ WSGI_APPLICATION = 'food_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.getenv('DB_NAME', BASE_DIR / 'db.sqlite3'),
     }
 }
+
 
 
 # Password validation
@@ -161,10 +169,16 @@ STATICFILES_DIRS = [BASE_DIR/"static",'/var/www/static/',]
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587  # or the appropriate port for your SMTP server
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'obadimejiayomide9@gmail.com'  # Your new email address
-EMAIL_HOST_PASSWORD = '@Oluwajimi06'
+
+
+# Email settings
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'localhost')
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'your_email@example.com')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'your_email_password')
+
+
+
 

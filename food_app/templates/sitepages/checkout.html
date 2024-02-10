@@ -3,19 +3,19 @@
 {%block aboutpage_content%}
 <div class="container-xxl py-5 bg-dark hero-header mb-5">
     <div class="container text-center my-5 pt-5 pb-4">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">{{pslug}}</h1>
+        <h1 class="display-3 text-white mb-3 animated slideInDown">{{ data.ptitle }}</h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-center text-uppercase">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item text-white active" aria-current="page">{{pslug}}</li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Checkout page</li>
             </ol>
         </nav>
     </div>
 </div>
 </div>
 <style>
-    body {
+    /* body {
       font-family: 'Arial', sans-serif;
       background-color: #f4f4f4;
       margin: 0;
@@ -23,10 +23,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      /* height: 100vh; */
-    }
+      
+    } */
 
-    form {
+    .checkout-form {
       background-color: #fff;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
@@ -88,7 +88,7 @@
 
 <h1>Checkout</h1>
 <div class="checkout-container">
-    <form method="post" action="{% url 'sitepages:checkout' %}">
+    <form class="checkout-form" method="post" action="{% url 'sitepages:checkout' %}">
         {% csrf_token %}
 
         <div id="checkoutDetailsSection">

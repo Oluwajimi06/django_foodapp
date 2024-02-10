@@ -3,19 +3,32 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from decimal import Decimal
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 
 
 
 # Create your models here.
 class FoodItem(models.Model):
-    name=models.CharField(max_length=100)
-    desc_short=models.CharField(max_length=100)
-    desc_long=models.TextField()
-    price=models.CharField(max_length=10)
-    image=models.ImageField(upload_to="uploaded")
+    CATEGORY_CHOICES = [
+        ('Breakfast', 'Breakfast'),
+        ('Lunch', 'Lunch'),
+        ('Dinner', 'Dinner'),
+    ]
+
+    name = models.CharField(max_length=100)
+    desc_short = models.CharField(max_length=100)
+    desc_long = models.TextField()
+    price = models.CharField(max_length=10)
+    image = models.ImageField(upload_to="uploaded")
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default='Breakfast')
 
     def __str__(self):
         return self.name
+
 
 
 
@@ -41,6 +54,10 @@ class CheckoutDetails(models.Model):
 
 
 
+from django.db import models
+from django.contrib.auth.models import User
+from django.utils import timezone
+
 class Purchase(models.Model):
     STATUS_CHOICES = [
         ('PENDING', 'Pending'),
@@ -55,8 +72,9 @@ class Purchase(models.Model):
     order_date = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
     total_amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-
-    # Other fields and methods as needed
+    
+    # New field to track payment status
+    is_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Purchase {self.id} - {self.user.username}"
@@ -71,11 +89,6 @@ class Purchase(models.Model):
     def total_amount(self):
         return self.calculate_total_amount()
 
-
-
-
-
-
 class OrderItem(models.Model):
     purchase = models.ForeignKey(Purchase, related_name='order_items', on_delete=models.CASCADE)
     product_name = models.CharField(max_length=255)
@@ -85,6 +98,121 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"OrderItem {self.id} - {self.product_name} - {self.purchase}"
+
+
+
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    delivery_address = models.TextField()
+    phone_number = models.CharField(max_length=15)
+    email = models.EmailField()  # Include the email field
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.get_or_create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    try:
+        instance.userprofile.save()
+    except UserProfile.DoesNotExist:
+        UserProfile.objects.create(user=instance)
+
+
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True)
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
+
+
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message from {self.name}"
+
+
+class Table(models.Model):
+    TABLE_TYPES = [
+        ('People 1', 'People 1'),
+        ('People 2', 'People 2'),
+        ('People 3', 'People 3'),
+    ]
+
+    table_type = models.CharField(max_length=20, choices=TABLE_TYPES, unique=True)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return self.table_type
+
+
+
+
+
+
+
+
+
+class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)  # Set a default value
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, null=True)  # Allow null values
+    booking_date = models.DateField()
+    booking_time = models.TimeField()
+    message = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    PAYMENT_STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+    ]
+
+    payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='pending')
+
+    def __str__(self):
+        return f'{self.user.username} - {self.booking_date} {self.booking_time}'
+
+
+
+
+
+class BookingHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    PAYMENT_STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+    ]
+
+    payment_status = models.CharField(max_length=20, choices=PAYMENT_STATUS_CHOICES, default='pending')
+
+    # Add any other fields as needed
+
+    def __str__(self):
+        return f'{self.user.username} - {self.booking.booking_date} {self.booking.booking_time}'
+
+
+
+
+
+
+
+
+
 
 
 

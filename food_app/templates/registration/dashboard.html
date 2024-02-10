@@ -16,17 +16,58 @@
         </div>
 
 
+<style>
+
+.flex-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Optional: Add styles for the individual links if needed */
+.flex-container a {
+  text-decoration: none;
+  color: #333; /* Set your desired text color */
+  padding: 10px; /* Add some padding to the links */
+}
+
+
+
+
+</style>
+
 
 
 
  <!-- dashboard.html -->
 
-  <h2>Dashboard</h2>
+  <h2 style="text-align: center;">Dashboard</h2>
   <!-- Display dashboard content here -->
 
-  <p><a href="{% url 'accounts:profile' %}">Go to Profile</a></p>
+  <div class="flex-container">
+    <a href="{% url 'sitepages:profile' %}">
+      <img src="{% static 'img/profile icon.png' %}" alt="" height="200px">Go to Profile
+    </a>
+  
+    <a href="{% url 'sitepages:view_booking_history' %}">
+      <img src="{% static 'img/booking-history.png' %}" alt="" height="180px">View Booking History
+    </a>
+  
+    <a href="{% url 'sitepages:order_history' %}">
+      <img src="{% static 'img/order-history-icon.png' %}" alt="" height="150px">Order History
+    </a>
+  </div>
+  
+
+  <!-- dashboard.html or any template with user navigation links -->
+
+
+ 
+
+  
+  
  
 
 
 
 {% endblock %}
+

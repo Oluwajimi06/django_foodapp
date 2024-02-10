@@ -8,7 +8,7 @@
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">{{pslug}}</li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">User Profile</li>
                         </ol>
                     </nav>
                 </div>
@@ -61,7 +61,7 @@
                 <p>Phone Number: {{ user_profile.phone_number }}</p>
                 <!-- Add other fields as needed -->
               </div>
-              <a href="{% url 'accounts:editprofile' %}" id="edit-profile-link">Edit Profile</a>
+              <a href="{% url 'sitepages:editprofile' %}" id="edit-profile-link">Edit Profile</a>
             </div>
           </div>
           
@@ -74,3 +74,4 @@
 
 
 {% endblock %}
+
